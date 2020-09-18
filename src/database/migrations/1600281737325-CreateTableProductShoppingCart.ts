@@ -14,31 +14,37 @@ export class CreateTableProductShoppingCart1600281737325
         columns: [
           {
             name: 'id',
-            type: 'int',
+            type: 'varchar',
             isPrimary: true,
             isGenerated: true,
-            generationStrategy: 'increment',
+            generationStrategy: 'uuid',
           },
           {
-            name: 'id_user',
+            name: 'id_product',
             type: 'int',
             isNullable: false,
           },
           {
             name: 'id_shopping_cart',
+            type: 'varchar',
+            isNullable: false,
+          },
+          {
+            name: 'amount',
             type: 'int',
             isNullable: false,
           },
         ],
       }),
+      true,
     );
 
     await queryRunner.createForeignKey(
       'product_shopping_cart',
       new TableForeignKey({
-        columnNames: ['id_user'],
+        columnNames: ['id_product'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'users',
+        referencedTableName: 'products',
       }),
     );
 

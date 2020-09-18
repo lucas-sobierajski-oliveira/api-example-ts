@@ -14,17 +14,23 @@ export class CreateTableProducts1600279843414 implements MigrationInterface {
             generationStrategy: 'increment',
           },
           {
-            name: 'preco',
-            type: 'decimal',
+            name: 'name',
+            type: 'varchar',
             isNullable: false,
           },
           {
-            name: 'status',
-            type: 'varchar',
+            name: 'cost',
+            type: 'float',
+            isNullable: false,
+          },
+          {
+            name: 'is_active',
+            type: 'boolean',
             isNullable: false,
           },
         ],
       }),
+      true,
     );
   }
 

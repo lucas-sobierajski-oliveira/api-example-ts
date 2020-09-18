@@ -1,5 +1,6 @@
-import ProductsAvaiableController from 'controllers/ProductsAvaiableController';
 import { Router } from 'express';
+
+import ProductsAvaiableController from '../controllers/ProductsAvaiableController';
 
 const productAvaiableRoutes = Router();
 

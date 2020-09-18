@@ -8,13 +8,13 @@ export class CreateTableUsers1600280713583 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'int',
+            type: 'varchar',
             isPrimary: true,
             isGenerated: true,
-            generationStrategy: 'increment',
+            generationStrategy: 'uuid',
           },
           {
-            name: 'nome',
+            name: 'name',
             type: 'varchar',
             isNullable: false,
           },
@@ -25,6 +25,7 @@ export class CreateTableUsers1600280713583 implements MigrationInterface {
           },
         ],
       }),
+      true,
     );
   }
 

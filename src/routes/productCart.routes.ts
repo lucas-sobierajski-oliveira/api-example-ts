@@ -1,5 +1,6 @@
-import ProductCartController from 'controllers/ProductCartController';
 import { Router } from 'express';
+
+import ProductCartController from '../controllers/ProductCartController';
 
 const productCartRoutes = Router();
 

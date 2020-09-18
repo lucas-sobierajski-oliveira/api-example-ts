@@ -8,10 +8,10 @@ export class CreateTableRequests1600281764729 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'int',
+            type: 'varchar',
             isPrimary: true,
             isGenerated: true,
-            generationStrategy: 'increment',
+            generationStrategy: 'uuid',
           },
           {
             name: 'items_list',
@@ -21,21 +21,17 @@ export class CreateTableRequests1600281764729 implements MigrationInterface {
           {
             name: 'credit_cart',
             type: 'boolean',
+            default: false,
             isNullable: false,
           },
           {
             name: 'delivery_address',
-            type: 'string',
+            type: 'varchar',
             isNullable: false,
           },
           {
-            name: 'created_at',
-            type: 'timestamp',
-            default: 'CURRENT_TIMESTAMP',
-          },
-          {
             name: 'total',
-            type: 'decimal',
+            type: 'float',
             isNullable: false,
           },
           {
@@ -43,8 +39,14 @@ export class CreateTableRequests1600281764729 implements MigrationInterface {
             type: 'varchar',
             isNullable: false,
           },
+          {
+            name: 'created_at',
+            type: 'timestamp',
+            default: 'CURRENT_TIMESTAMP',
+          },
         ],
       }),
+      true,
     );
   }
 

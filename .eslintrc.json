@@ -27,7 +27,11 @@
     "prettier/prettier": "error",
     "class-methods-use-this": "off",
     "import/prefer-default-export": "off",
-    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "_" }]
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "argsIgnorePattern": "_" }
+    ],
+    "camelcase": "off"
   },
   "settings": {
     "import/resolver": {

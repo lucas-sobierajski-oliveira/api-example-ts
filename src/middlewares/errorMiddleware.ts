@@ -1,5 +1,6 @@
-import AppError from 'errors/AppError';
 import { NextFunction, Response, Request } from 'express';
+
+import AppError from '../errors/AppError';
 
 export default function errorMiddleware(
   err: Error,
@@ -12,6 +13,8 @@ export default function errorMiddleware(
       .status(err.statusCode)
       .json({ status: err.statusCode, message: err.message });
   }
+
+  console.error(err);
 
   return response
     .status(500)

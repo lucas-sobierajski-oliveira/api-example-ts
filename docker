@@ -1,0 +1,1 @@
+docker run --name mysql -e ALLOW_EMPTY_PASSWORD=yes -e MYSQL_USER=mysql -e MYSQL_PASSWORD=docker -e MYSQL_DATABASE=hfa -e MYSQL_AUTHENTICATION_PLUGIN=mysql_native_password -p 3306:3306 -d  bitnami/mysql:latest

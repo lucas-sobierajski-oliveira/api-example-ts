@@ -14,18 +14,19 @@ export class CreateTableShoppingCart1600280922355
         columns: [
           {
             name: 'id',
-            type: 'int',
+            type: 'varchar',
             isPrimary: true,
             isGenerated: true,
-            generationStrategy: 'increment',
+            generationStrategy: 'uuid',
           },
           {
             name: 'id_user',
-            type: 'int',
+            type: 'varchar',
             isNullable: false,
           },
         ],
       }),
+      true,
     );
 
     await queryRunner.createForeignKey(
