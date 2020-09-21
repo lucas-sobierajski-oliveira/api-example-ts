@@ -32,7 +32,7 @@ class UsersController {
 
     const shoppingCartRepository = getRepository(ShoppingCart);
     const shoppingCart = shoppingCartRepository.create({
-      id_user: user.id,
+      userId: user.id,
     });
 
     try {
