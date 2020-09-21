@@ -1,3 +1,4 @@
+import * as Yup from 'yup';
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import { sign } from 'jsonwebtoken';
@@ -8,6 +9,15 @@ import tokenConfig from '../config/tokenConfig';
 
 class SessionController {
   async store(request: Request, response: Response) {
+    const schema = Yup.object().shape({
+      name: Yup.string().required(),
+      password: Yup.string().required(),
+    });
+
+    if (!(await schema.isValid(request.body))) {
+      throw new AppError('Erro de validação', 400);
+    }
+
     const { name, password } = request.body;
 
     const usersRepository = getRepository(Users);
@@ -19,7 +29,7 @@ class SessionController {
     }
 
     return response.json({
-      token: sign({ id_user: user.id }, tokenConfig.secret, {
+      token: sign({ idUser: user.id }, tokenConfig.secret, {
         expiresIn: tokenConfig.expires,
       }),
     });

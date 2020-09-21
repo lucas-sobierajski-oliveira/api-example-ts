@@ -5,10 +5,10 @@ class Users {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column('varchar')
   name: string;
 
-  @Column()
+  @Column('varchar')
   password: string;
 }
 

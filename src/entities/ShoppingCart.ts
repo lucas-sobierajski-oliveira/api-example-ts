@@ -1,24 +1,24 @@
 import {
   Entity,
   PrimaryGeneratedColumn,
+  OneToOne,
+  JoinColumn,
   Column,
-  ManyToMany,
-  JoinTable,
 } from 'typeorm';
 
-import Products from './Products';
+import Users from './Users';
 
-@Entity()
+@Entity('shopping_cart')
 class ShoppingCart {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  id_user: string;
+  userId: string;
 
-  @ManyToMany(_ => Products)
-  @JoinTable()
-  products: Products[];
+  @OneToOne(() => Users)
+  @JoinColumn()
+  user: Users;
 }
 
 export default ShoppingCart;

@@ -9,7 +9,7 @@ class ProductsAvaiableController {
     const productsRepository = getRepository(Products);
 
     const allProductsAvaiable = await productsRepository.find({
-      is_active: true,
+      isActive: true,
     });
 
     if (allProductsAvaiable.length < 1) {

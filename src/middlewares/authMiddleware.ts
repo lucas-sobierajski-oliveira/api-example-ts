@@ -8,7 +8,7 @@ interface ITokenPayload {
   iat: number;
   exp: number;
   sub: string;
-  id_user: string;
+  idUser: string;
 }
 
 export default function authMiddleware(
@@ -26,8 +26,8 @@ export default function authMiddleware(
 
   try {
     const decoded = verify(token, tokenConfig.secret);
-    const { id_user } = decoded as ITokenPayload;
-    request.id_user = id_user;
+    const { idUser } = decoded as ITokenPayload;
+    request.idUser = idUser;
 
     return next();
   } catch (error) {

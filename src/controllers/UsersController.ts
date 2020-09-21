@@ -1,3 +1,4 @@
+import * as Yup from 'yup';
 import { Response, Request } from 'express';
 import { getRepository } from 'typeorm';
 import AppError from '../errors/AppError';
@@ -7,6 +8,14 @@ import ShoppingCart from '../entities/ShoppingCart';
 
 class UsersController {
   async store(request: Request, response: Response) {
+    const schema = Yup.object().shape({
+      name: Yup.string().required(),
+      password: Yup.string().required(),
+    });
+
+    if (!(await schema.isValid(request.body))) {
+      throw new AppError('Erro de validação', 400);
+    }
     const { name, password } = request.body;
 
     const usersRepository = getRepository(Users);

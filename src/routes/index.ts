@@ -16,7 +16,7 @@ routes.use('/sessions', sessionRoutes);
 routes.use(authMiddleware);
 routes.use('/produtos', productsRoutes);
 routes.use('/produtos_disponiveis', productsAvaiableRoutes);
-routes.use('/carrinho_produto', productCartRoutes);
+routes.use('/produtos_carrinho', productCartRoutes);
 routes.use('/pedidos', requestRoutes);
 
 export default routes;

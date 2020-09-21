@@ -6,25 +6,27 @@ import {
 } from 'typeorm';
 
 @Entity('requests')
-export class Requests {
+class Requests {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
-  items_list: string;
+  @Column('text')
+  itemsList: string;
 
-  @Column()
-  creadit_cart: boolean;
+  @Column('bool')
+  isCreditCard: boolean;
 
-  @Column()
-  address_delivery: string;
+  @Column('varchar', { nullable: false })
+  addressDelivery: string;
 
-  @Column()
+  @Column('float')
   total: number;
 
-  @Column()
+  @Column('varchar')
   status: string;
 
   @CreateDateColumn()
-  created_at: Date;
+  createdAt: Date;
 }
+
+export default Requests;

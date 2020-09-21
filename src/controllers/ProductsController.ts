@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
+import * as Yup from 'yup';
 
 import AppError from '../errors/AppError';
 
@@ -31,14 +32,24 @@ class ProductsController {
   }
 
   async store(request: Request, response: Response) {
-    const { name, cost, is_active } = request.body;
+    const schema = Yup.object().shape({
+      name: Yup.string().required(),
+      cost: Yup.number().required(),
+      isActive: Yup.boolean().required(),
+    });
+
+    if (!(await schema.isValid(request.body))) {
+      throw new AppError('Erro de validação');
+    }
+
+    const { name, cost, isActive } = request.body;
 
     const productRepository = getRepository(Products);
 
     const product = productRepository.create({
       name,
       cost,
-      is_active,
+      isActive,
     });
 
     try {

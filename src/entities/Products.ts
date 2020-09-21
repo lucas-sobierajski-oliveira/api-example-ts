@@ -5,14 +5,14 @@ class Products {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @Column('varchar')
+  @Column('varchar', { nullable: false })
   name: string;
 
-  @Column('float')
+  @Column('float', { nullable: false })
   cost: number;
 
-  @Column('boolean')
-  is_active: boolean;
+  @Column('boolean', { default: true })
+  isActive: boolean;
 }
 
 export default Products;
