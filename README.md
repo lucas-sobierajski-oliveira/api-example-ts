@@ -5,12 +5,11 @@ Ruby API
 <p align="center">api</p>
 
 ## Recursos
-- ⚛️ **express** — Permite tipagem no código
-- ⚛️ **jsonwebtoken** — Cliente http
-- ⚛️ **swagger-ui-express** — Lib para criação de interfaces web 
-- ⚛️ **Type Script** — Permite tipagem no código
-- ⚛️ **typeorm** — Cliente http
-- ⚛️ **typeorm** — Lib para criação de interfaces web 
+- ⚛️ **express** — Framework web
+- ⚛️ **jsonwebtoken** — Autenticação nas rotas
+- ⚛️ **swagger-ui-express** — Gerar documentação
+- ⚛️ **typeorm** — (ORM) manipular o banco de dados
+- ⚛️ **Yup** — Validação de paramatros 
 ## Iniciando o projeto localmente
 - Instalando as dependências <br>
 `yarn install` <br>
