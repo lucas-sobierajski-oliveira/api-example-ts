@@ -1,9 +1,20 @@
-# ruby-api
-## Executando o projeto
-#### Na raiz do projeto execute 
-Instalando as dependências <br>
+<h1 align="center">
+Ruby API
+</h1>
+
+<p align="center">api</p>
+
+## Recursos
+- ⚛️ **express** — Permite tipagem no código
+- ⚛️ **jsonwebtoken** — Cliente http
+- ⚛️ **swagger-ui-express** — Lib para criação de interfaces web 
+- ⚛️ **Type Script** — Permite tipagem no código
+- ⚛️ **typeorm** — Cliente http
+- ⚛️ **typeorm** — Lib para criação de interfaces web 
+## Iniciando o projeto localmente
+- Instalando as dependências <br>
 `yarn install` <br>
-Iniciando os containers <br>
+- Iniciando os containers <br>
 `docker-compose up` <br>
 
 #### Acessando a documentação da api(Swagger)
