@@ -20,5 +20,5 @@ Ruby API
 http://localhost:3333/docs
 
 ##### Gerar um token com essas credenciais e navegar pelas rotas
-name: Talles <br>
+name: talles <br>
 password: 123456
