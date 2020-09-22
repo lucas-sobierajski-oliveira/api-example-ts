@@ -4,12 +4,12 @@ import RequestController from '../controllers/RequestController';
 
 const requestRoutes = Router();
 
-requestRoutes.get('/', RequestController.index);
+requestRoutes.get('/pedidos', RequestController.index);
 
-requestRoutes.get('/:id', RequestController.show);
+requestRoutes.get('/pedidos/:id', RequestController.show);
 
-requestRoutes.post('/', RequestController.store);
+requestRoutes.post('/pedir', RequestController.store);
 
-requestRoutes.put('/:id', RequestController.update);
+requestRoutes.put('/pedir/:id', RequestController.update);
 
 export default requestRoutes;

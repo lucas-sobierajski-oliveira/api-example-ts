@@ -15,7 +15,7 @@ class SessionController {
     });
 
     if (!(await schema.isValid(request.body))) {
-      throw new AppError('Erro de validação', 400);
+      throw new AppError('Parâmetros inválidos', 400);
     }
 
     const { name, password } = request.body;
@@ -25,10 +25,10 @@ class SessionController {
     const user = await usersRepository.findOne({ name, password });
 
     if (!user) {
-      throw new AppError('Usuário/Password inválidos');
+      throw new AppError('Usuário/Password inválidos', 401);
     }
 
-    return response.json({
+    return response.status(200).json({
       token: sign({ idUser: user.id }, tokenConfig.secret, {
         expiresIn: tokenConfig.expires,
       }),

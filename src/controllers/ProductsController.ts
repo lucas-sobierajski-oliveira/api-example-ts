@@ -21,6 +21,7 @@ class ProductsController {
 
   async show(request: Request, response: Response) {
     const { id } = request.params;
+    console.log(id);
     const productsRepository = getRepository(Products);
     const product = await productsRepository.findOne(id);
 

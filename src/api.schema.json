@@ -1,0 +1,641 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "API Ruby",
+    "version": "1.0"
+  },
+  "servers": [{ "url": "http://localhost:3333" }],
+  "paths": {
+    "/sessions": {
+      "post": {
+        "description": "Criar uam sessão autenticada",
+        "operationId": "storeSessions",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserAuth"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Autenticação concluída",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/token"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parâmetros invalidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Parâmetros invalidos",
+                  "code": "400"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Usuário/Password inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Usuário/Password inválidos",
+                  "code": "401"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/produtos": {
+      "get": {
+        "description": "todos os produtos",
+        "operationId": "indexProducts",
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {},
+        "responses": {
+          "200": {
+            "description": "todos os produtos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/products"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parâmetros invalidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Parâmetros invalidos",
+                  "code": "400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sem produtos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Sem Produtos",
+                  "code": "404"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/produtos/{id}": {
+      "get": {
+        "description": "produto",
+        "operationId": "showProducts",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "properties": {
+                "id": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "produto",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parâmetros invalidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Parâmetros invalidos",
+                  "code": "400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Produto inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Produto inexistente",
+                  "code": "404"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/produtos_disponiveis": {
+      "get": {
+        "description": "produtos disponiveis",
+        "operationId": "indexProductsAvaiable",
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "produtos disponiveis",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/products"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parâmetros invalidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Parâmetros invalidos",
+                  "code": "400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sem produtos disponiveis",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Sem produtos disponiveis",
+                  "code": "404"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/produtos_carrinho": {
+      "post": {
+        "description": "Criar produto para o carrinho do usuário",
+        "operationId": "storeShoppingCart",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "idProduct": {
+                    "type": "number"
+                  },
+                  "amount": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Inserido produto no carrinho do usuário",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "shoppingCartId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parâmetros invalidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Parâmetros invalidos",
+                  "code": "400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "carrinho/produto inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Usuário/Password inválidos",
+                  "code": "401"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pedidos": {
+      "get": {
+        "description": "todos os pedidos",
+        "operationId": "indexRequests",
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {},
+        "responses": {
+          "200": {
+            "description": "todos os pedidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "type": "array",
+                    "request": {
+                      "$ref": "#/components/schemas/Request"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parâmetros invalidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Parâmetros invalidos",
+                  "code": "400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não existem registros",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Sem Produtos",
+                  "code": "404"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pedidos/{id}": {
+      "get": {
+        "description": "pedido",
+        "operationId": "showRequests",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "pedido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "status": { "type": "string" },
+                    "total": { "type": "number" },
+                    "itemsList": {
+                      "type": "array",
+                      "items": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parâmetros invalidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Parâmetros invalidos",
+                  "code": "400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não existem registros",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Sem Produtos",
+                  "code": "404"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pedir": {
+      "post": {
+        "description": "criar um pedido",
+        "operationId": "storeRequest",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "shoppingCartId": { "type": "string" },
+                  "isCreditCard": { "type": "boolean" },
+                  "addressDelivery": { "type": "string" },
+                  "status": { "type": "string" }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Pedido criado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "itemsList": { "type": "string" },
+                    "addressDelivery": { "type": "string" },
+                    "isCreditCard": { "type": "boolean" },
+                    "status": { "type": "string" },
+                    "total": { "type": "number" },
+                    "createdAt": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parâmetros invalidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Parâmetros invalidos",
+                  "code": "400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não foi possível criar o pedido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Não foi possível criar o pedido",
+                  "code": "404"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pedir/{id}": {
+      "put": {
+        "description": "editar pedido",
+        "operationId": "updateRequest",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "status": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "pedido editado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Request"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parâmetros invalidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Parâmetros invalidos",
+                  "code": "400"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não existe registro com esse ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Sem registro",
+                  "code": "404"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "token": {
+        "type": "string"
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "status": {
+            "type": "number"
+          }
+        }
+      },
+      "Request": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "itemsList": {
+            "type": "string"
+          },
+          "isCreditCard": {
+            "type": "boolean"
+          },
+          "addressDelivery": {
+            "type": "string"
+          },
+          "total": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        }
+      },
+      "UserAuth": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "talles"
+          },
+          "password": {
+            "type": "string",
+            "example": "123456"
+          }
+        }
+      },
+      "products": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Product"
+        }
+      },
+      "Product": {
+        "properties": {
+          "id": { "type": "integer" },
+          "name": {
+            "type": "string"
+          },
+          "cost": {
+            "type": "number"
+          },
+          "isActive": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}

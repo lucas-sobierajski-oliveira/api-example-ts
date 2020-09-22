@@ -6,6 +6,7 @@ import AppError from '../errors/AppError';
 
 import ShoppingCart from '../entities/ShoppingCart';
 import ShoppingCartProducts from '../entities/ShoppingCartProducts';
+import Products from '../entities/Products';
 
 interface IShoppingCartProducts {
   idProduct: number;
@@ -17,6 +18,7 @@ class ProductCartController {
   async store(request: Request, response: Response) {
     const schema = Yup.object().shape({
       idProduct: Yup.number().required(),
+      amount: Yup.number().required(),
     });
 
     if (!(await schema.isValid(request.body))) {
@@ -24,7 +26,8 @@ class ProductCartController {
     }
 
     const { idUser } = request;
-    const { idProduct, amount = 1 } = request.body;
+    const { idProduct, amount } = request.body;
+
     const shoppingCartRepository = getRepository(ShoppingCart);
 
     const userShoppingCart = await shoppingCartRepository.findOne({
@@ -33,6 +36,14 @@ class ProductCartController {
 
     if (!userShoppingCart) {
       throw new AppError('Carrinho inexistente', 404);
+    }
+
+    const productExists = await getRepository(Products).findOne({
+      id: idProduct,
+    });
+
+    if (!productExists) {
+      throw new AppError('Produto inexistente', 404);
     }
 
     const shoppingCartProductsRepository = getRepository(ShoppingCartProducts);
@@ -47,7 +58,7 @@ class ProductCartController {
     if (!productInCart) {
       const productShoppingCartCreate: any = shoppingCartProductsRepository.create(
         {
-          amount,
+          amount: !!amount === false ? 1 : amount,
           products: { id: idProduct },
           shoppingCart: { id: userShoppingCart.id },
         },
@@ -57,7 +68,7 @@ class ProductCartController {
         productShoppingCartCreate as IShoppingCartProducts,
       );
     } else {
-      productInCart.amount = Number(productInCart.amount) + amount;
+      productInCart.amount += amount;
       shoppingCartProductsRepository.update(
         {
           products: { id: idProduct },

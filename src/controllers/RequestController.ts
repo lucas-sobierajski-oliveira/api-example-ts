@@ -84,7 +84,7 @@ class RequestController {
     let total = 0;
 
     const allProducts = allUserProducts.map((infoProduct: any) => {
-      total += infoProduct.products.cost;
+      total += infoProduct.amount * infoProduct.products.cost;
 
       return {
         idProduct: infoProduct.id,
