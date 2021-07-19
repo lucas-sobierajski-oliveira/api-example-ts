@@ -1,5 +1,5 @@
 <h1 align="center">
-Ruby API
+API_EXAMPLE_TS
 </h1>
 
 <p align="center">api</p>
