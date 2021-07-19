@@ -5,11 +5,11 @@ Ruby API
 <p align="center">api</p>
 
 ## Recursos
-- ⚛️ **express** — Framework web
-- ⚛️ **jsonwebtoken** — Autenticação nas rotas
-- ⚛️ **swagger-ui-express** — Gerar documentação
-- ⚛️ **typeorm** — (ORM) manipular o banco de dados
-- ⚛️ **Yup** — Validação de paramatros 
+- ⚛️ **express**
+- ⚛️ **jsonwebtoken**
+- ⚛️ **swagger-ui-express**
+- ⚛️ **typeorm**
+- ⚛️ **Yup**
 ## Iniciando o projeto localmente
 - Instalando as dependências <br>
 `yarn install` <br>
